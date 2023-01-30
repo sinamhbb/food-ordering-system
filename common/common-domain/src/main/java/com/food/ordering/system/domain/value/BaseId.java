@@ -1,0 +1,26 @@
+package com.food.ordering.system.domain.value;
+
+public abstract class BaseId<T> {
+    private T value;
+
+    protected BaseId(T id) {
+        this.value = id;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseId<?> baseId = (BaseId<?>) o;
+        return value.equals(baseId.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+}
