@@ -1,7 +1,7 @@
 package com.food.ordering.system.domain.valueobject;
 
 public abstract class BaseId<T> {
-    private T value;
+    private final T value;
 
     protected BaseId(T id) {
         this.value = id;

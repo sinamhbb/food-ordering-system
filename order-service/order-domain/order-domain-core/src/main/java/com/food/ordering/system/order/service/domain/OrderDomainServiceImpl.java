@@ -18,7 +18,7 @@ import java.util.List;
 // no business logic inside, and it is exposed to outside through an interface. While UseCases are not exposed to outside.
 @Slf4j
 public class OrderDomainServiceImpl implements OrderDomainService {
-
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(OrderDomainServiceImpl.class);
     private static final String UTC = "UTC";
 
     @Override
@@ -27,7 +27,7 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         setOrderProductInformation(order, restaurant);
         order.validateOrder();
         order.initializeOrder();
-        log.info("Order with Id: {} is created", order.getId().getValue());
+        log.info("Order with Id: {} is initiated", order.getId().getValue());
         return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
@@ -59,7 +59,7 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     }
 
     private void validateRestaurant(Restaurant restaurant) {
-        if (restaurant.isActive()) {
+        if (!restaurant.isActive()) {
             throw new OrderDomainException("Restaurant with id: " + restaurant.getId().getValue() + " is currently not active");
         }
 
